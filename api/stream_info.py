@@ -4,11 +4,14 @@ import sys
 import RPi.GPIO as GPIO
 import tm1637
 import time 
+import configparser
 
+config = configparser.ConfigParser()
+config.read('./config.ini')
 #CLK -> GPIO23 (Pin 16)
 #DI0 -> GPIO24 (Pin 18)
-client_id = ''
-client_secret = ''
+client_id = config['twitch']['client_id']
+client_secret = config['twitch']['client_secret']
 
 tokenUrl = 'https://id.twitch.tv/oauth2/token?client_id={}&client_secret={}&grant_type=client_credentials'.format(client_id, client_secret)
 tokenRequest = requests.post(tokenUrl).json()
